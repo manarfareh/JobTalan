@@ -1,0 +1,20 @@
+<template>
+    <div class="card-container" style="display: flex;flex-wrap: wrap;justify-content: space-between;margin: 0 -10px;background: rgba(0, 0, 0, .03); background-blend-mode: darken;">
+        <template for:each={opportunityList} for:item="opp" key={opp.OpportunityId}>
+            <lightning-card style="flex: 0 0 calc(50% - 20px); margin: 10px;" key={opp.OpportunityId}>
+                <h1 slot="title" class="no-wrap" style="color: rgb(86, 86, 232);">{opp.Contact.Post__r.Name}</h1>
+                <lightning-button data-post={opp.Contact.Post__r.Id}  data-name={opp.Contact.Post__r.Name} style="background-color: rgb(4, 95, 222);" label="See Post" slot="actions" onclick={handleclick}></lightning-button>
+                <p class="slds-var-p-horizontal_small">Status : {opp.Opportunity.StageName}</p>
+                <p slot="footer">Last Day of Status Change : {opp.Opportunity.LastModifiedDate__c}</p>
+            </lightning-card>
+        </template>
+        <template for:each={leadList} for:item="lead" key={lead.Id}>
+            <lightning-card style="flex: 0 0 calc(50% - 20px); margin: 10px;" key={lead.Id}>
+                <h1 slot="title" class="no-wrap" style="color: rgb(86, 86, 232);">{lead.Post__r.Name}</h1>
+                <lightning-button data-post={lead.Post__r.Id} data-name={lead.Post__r.Name} style="background-color: rgb(4, 95, 222);" label="See Post" slot="actions" onclick={handleclick}></lightning-button>
+                <p class="slds-p-horizontal_small">Status : {lead.Status}</p>
+                <p slot="footer">Last Day of Status Change : {lead.LastTransferDate}</p>
+            </lightning-card>
+        </template>
+    </div>
+</template>

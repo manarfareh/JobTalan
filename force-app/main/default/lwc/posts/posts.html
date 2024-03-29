@@ -1,0 +1,46 @@
+<template>
+    <lightning-combobox style="padding-left: 500px; padding-right:500px"
+        name="Department"
+        label="Department"
+        value={depName}
+        placeholder="Select Department"
+        options={departmentlist}
+        onchange={handleChange}>
+    </lightning-combobox>
+    <div class="product-container">
+        <div class="card-container">
+            <template if:true={visiblePosts}>
+                <template for:each={visiblePosts} for:item="off">
+                    <div key={off.id}   class="card-wrapper">
+                        <div class="card h-150 shadow-sm" style="width:320px; margin-left:50px; padding-top:20px">
+                            <!--<img src="https://www.freepnglogos.com/uploads/notebook-png/notebook-laptop-png-images-you-can-download-mashtrelo-14.png" class="card-img-top" alt="..."> -->
+                            <div class="card-body" style="padding-left: 20px; padding-right:20px;">
+                                <div class="clearfix mb-3" style="display: flex; justify-content: space-between;">
+                                    <span class="float-start badge rounded-pill bg-success" style="height: 0px;">{off.Location__c}</span>
+                                    <span class="float-end"><a href="#">{off.Contract_Type__c}</a></span>
+                                </div>
+                                <h5 class="card-title" style="text-align: center;">{off.Name}</h5>
+                                <p class="card-description" style="padding: 10px; width: 270px; overflow: hidden; text-overflow: ellipsis; white-space: normal; max-height: 4em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{off.Post_Description__c}</p>
+                                <div class="d-grid gap-2 my-4" style="padding-left: 40px; padding-right:70px; margin-bottom: 10px; padding-bottom: 20px;">
+                                    <lightning-button style=" padding: 20px 30px;"
+                                        onclick={handleReadMore}
+                                        variant="brand"
+                                        aria-haspopup="dialog"
+                                        label="Read More"
+                                        data-post={off.id}
+                                        data-name={off.Name}> 
+                                    </lightning-button>
+                                </div>
+    
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </div>
+    <div slot="footer" class="slds-var-m-vertical_medium" style="padding-left: 515px; width:1000px;">
+        <c-pagination records={totalPosts} onupdate={updateContactHandler}></c-pagination>
+    </div>
+
+</template>

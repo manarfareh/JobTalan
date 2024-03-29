@@ -1,0 +1,71 @@
+<template>
+    <lightning-modal-header label="My Modal Heading"></lightning-modal-header>
+    <lightning-modal-body> 
+    
+    <form class="form" onsubmit={handleSubmit}>
+    
+    <input class="form-control" type=hidden name="oid" value="00DQy000005c83J">
+    <input class="form-control" type=hidden name="retURL" value="https://talan-8d-dev-ed.develop.my.site.com/TalanJobs">
+    
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label" for="first_name">First Name</label>
+        <div class="col-sm-8">
+            <input class="form-control" id="first_name" maxlength="40" name="first_name" size="20" type="text" />
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label" for="last_name">Last Name</label>
+        <div class="col-sm-8">
+            <input class="form-control" id="last_name" maxlength="80" name="last_name" size="20" type="text" />
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label" for="email">Email</label>
+        <div class="col-sm-8">
+            <input class="form-control" id="email" maxlength="80" name="email" size="20" type="text" />
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label" for="city">City</label>
+        <div class="col-sm-8">
+            <input class="form-control" id="city" maxlength="40" name="city" size="20" type="text" />
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label" for="phone">Phone</label>
+        <div class="col-sm-8">
+            <input class="form-control" id="phone" maxlength="40" name="phone" size="20" type="text" />
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label" for="country">Country</label>
+        <div class="col-sm-8">
+            <input class="form-control" id="country" maxlength="40" name="country" size="20" type="text" />
+        </div>
+    </div>
+    
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit" name="submit">Submit</button>
+    </div>
+    <lightning-file-upload
+    label="Attach Resume"
+    name="fileUploader"
+    accept={acceptedFormats}
+    record-id={myRecordId}
+    onuploadfinished={handleUploadFinished}
+    multiple
+>
+</lightning-file-upload>
+    </form>
+
+    
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button label="OK" onclick={handleOkay}></lightning-button>
+    </lightning-modal-footer>
+</template>

@@ -1,0 +1,51 @@
+<template >
+    <div class="container mt-5"  style=" max-width:1250px;background: rgba(0, 0, 0, .03); background-blend-mode: darken;">
+        <template if:true={post}>
+            <div class="container">
+                <div class="card border-primary" style="padding-left:50px; padding-right:50px; padding-top:50px; padding-bottom:50px;">
+                    <div class="card-header bg-primary text-white text-center" >
+                        <h2 style="text-align: center; color:rgb(40, 40, 176); font-size:40px">{post.Name}</h2>
+                    </div>
+                    <div class="card-body" >
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="clearfix mb-3" style="display: flex; justify-content: space-between;">
+                                    <p style=" padding-left:30px; margin-bottom: 10px; font-size: 23px; color: #333;"><i class="fas fa-map-marker-alt"></i> {post.Location__c}</p>
+                                    <p style="margin-bottom: 10px; font-size: 23px; color: #333;">{post.Contract_Type__c}</p>
+                                    <p style="margin-bottom: 10px; font-size: 23px; color: #333;">{post.Salary__c}$</p>
+                                </div>
+                                <p style="margin-bottom: 5px; font-size: 16px; color: #333;"><strong>Type:</strong> </p>
+                                <p style="padding-left: 10px; margin-bottom: 5px;">{post.Type__c}</p>
+                                <p style="margin-bottom:5px; font-size: 16px; color: #333;"><strong>Skills:</strong></p>  
+                                <p style="padding-left: 10px; margin-bottom: 5px;">{post.Skills__c}</p>
+                                <p style="margin-bottom: 5px; font-size: 16px; color: #333;"><strong>Years of Experience:</strong></p>  
+                                <p style="padding-left: 10px; margin-bottom: 5px;">{post.Years_Of_Experience__c}</p>
+                                <p style="margin-bottom: 5px; font-size: 16px; color: #333;"><strong>Start Date:</strong></p> 
+                                <p style="padding-left: 10px; margin-bottom: 5px;"> {post.Start_Date__c}</p>
+                                <p style="margin-bottom:5px; font-size: 16px; color: #333;"><strong>Diploma:</strong></p>  
+                                <p style="padding-left: 10px; margin-bottom: 5px;">{post.Diploma__c}</p>
+                                <p style="margin-bottom: 5px; font-size: 16px; color: #333;"><strong>Description:</strong></p>  
+                                <p style="padding-left: 10px; margin-bottom: 5px;">{post.Post_Description__c}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container mt-3" style="padding-left: 600px; margin-bottom: 10px; padding-bottom: 10px;">
+                        <lightning-button 
+                            style="font-size: 18px;"
+                            variant="brand"
+                            label="Apply"
+                            title="Apply"
+                            onclick={handleClick}
+                            class="mt-3"
+                        >
+                        </lightning-button>
+                    </div>
+                </div>
+            </div>
+            
+        </template>
+        <template if:false={post}>
+            <p>No post details found.</p>
+        </template>
+    </div>
+</template>
