@@ -7,11 +7,13 @@ public with sharing class postcontroller {
     }
 
 
-
     @AuraEnabled(cacheable=true)
-    public static List<Department__c> getoffreByDepartment(String DepartmentName)
+    public static List<Department__c> getoffreByDepartmentandType(String DepartmentName ,String Type)
     {
-        List<Department__c> l=[select Id, (select  Id,Location__c, Name, Salary__c, Type__c, Skills__c,Years_Of_Experience__c, Start_Date__c, Diploma__c,	Contract_Type__c,Post_Description__c from Posts__r) from Department__c where Name= :DepartmentName];
+        List<Department__c> l=new List<Department__c>();
+        if(Type=='All') l=[select Id, (select  Id,Location__c, Name, Salary__c, Type__c, Skills__c,Years_Of_Experience__c, Start_Date__c, Diploma__c,	Contract_Type__c,Post_Description__c from Posts__r) from Department__c where Name= :DepartmentName];
+        else if(DepartmentName=='All') l=[select Id, (select  Id,Location__c, Name, Salary__c, Type__c, Skills__c,Years_Of_Experience__c, Start_Date__c, Diploma__c,	Contract_Type__c,Post_Description__c from Posts__r where Type__c=:Type) from Department__c ];
+        else l=[select Id, (select  Id,Location__c, Name, Salary__c, Type__c, Skills__c,Years_Of_Experience__c, Start_Date__c, Diploma__c,	Contract_Type__c,Post_Description__c from Posts__r where Type__c=:Type) from Department__c where Name= :DepartmentName];
         return l;
     }
 

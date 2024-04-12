@@ -1,67 +1,65 @@
 <template>
-    <lightning-modal-header label="My Modal Heading"></lightning-modal-header>
+    <lightning-modal-header label="Speculative Application"></lightning-modal-header>
     <lightning-modal-body> 
     
-    <form class="form" onsubmit={handleSubmit}>
-    
-    <input class="form-control" type=hidden name="oid" value="00DQy000005c83J">
-    <input class="form-control" type=hidden name="retURL" value="https://talan-8d-dev-ed.develop.my.site.com/TalanJobs">
-    
-    <div class="form-group row">
-        <label class="col-sm-4 col-form-label" for="first_name">First Name</label>
-        <div class="col-sm-8">
-            <input class="form-control" id="first_name" maxlength="40" name="first_name" size="20" type="text" />
-        </div>
-    </div>
-    
-    <div class="form-group row">
-        <label class="col-sm-4 col-form-label" for="last_name">Last Name</label>
-        <div class="col-sm-8">
-            <input class="form-control" id="last_name" maxlength="80" name="last_name" size="20" type="text" />
-        </div>
-    </div>
-    
-    <div class="form-group row">
-        <label class="col-sm-4 col-form-label" for="email">Email</label>
-        <div class="col-sm-8">
-            <input class="form-control" id="email" maxlength="80" name="email" size="20" type="text" />
-        </div>
-    </div>
-    
-    <div class="form-group row">
-        <label class="col-sm-4 col-form-label" for="city">City</label>
-        <div class="col-sm-8">
-            <input class="form-control" id="city" maxlength="40" name="city" size="20" type="text" />
-        </div>
-    </div>
-    
-    <div class="form-group row">
-        <label class="col-sm-4 col-form-label" for="phone">Phone</label>
-        <div class="col-sm-8">
-            <input class="form-control" id="phone" maxlength="40" name="phone" size="20" type="text" />
-        </div>
-    </div>
-    
-    <div class="form-group row">
-        <label class="col-sm-4 col-form-label" for="country">Country</label>
-        <div class="col-sm-8">
-            <input class="form-control" id="country" maxlength="40" name="country" size="20" type="text" />
-        </div>
-    </div>
-    
-    <div class="text-center">
-        <button class="btn btn-primary" type="submit" name="submit">Submit</button>
-    </div>
-    <lightning-file-upload
-    label="Attach Resume"
-    name="fileUploader"
-    accept={acceptedFormats}
-    record-id={myRecordId}
-    onuploadfinished={handleUploadFinished}
-    multiple
->
-</lightning-file-upload>
-    </form>
+        <form class="slds-form" onsubmit={handleSubmit} style="max-width: 600px; margin: auto;">
+            <!-- Hidden Inputs -->
+            <input type="hidden" name="oid" value="00DQy000005c83J">
+            <input type="hidden" name="retURL" value="https://talan-8d-dev-ed.develop.my.site.com/TalanJobs">
+            
+            <div class="slds-grid slds-wrap">
+                <!-- Column 1 -->
+                <div class="slds-col slds-size_1-of-2">
+                    <div class="slds-form-element slds-m-bottom_small">
+                        <label class="slds-form-element__label" for="first_name" style="color: #005290;">First Name :</label>
+                        <div class="slds-form-element__control">
+                            <input class="slds-input" id="first_name" type="text" name="first_name" maxlength="20" style=" padding: 0.2rem 0.5rem;">
+                        </div>
+                    </div>
+                    <div class="slds-form-element slds-m-bottom_small">
+                        <label class="slds-form-element__label" for="last_name" style="color: #005290;">Last Name :</label>
+                        <div class="slds-form-element__control">
+                            <input class="slds-input" id="last_name" type="text" name="last_name" maxlength="20" style=" padding: 0.2rem 0.5rem;">
+                        </div>
+                    </div>
+                    <div class="slds-form-element slds-m-bottom_small">
+                        <label class="slds-form-element__label" for="email" style="color: #005290;">Email :</label>
+                        <div class="slds-form-element__control">
+                            <input class="slds-input" id="email" type="text" name="email" maxlength="40" style=" padding: 0.2rem 0.5rem;">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Column 2 -->
+                <div class="slds-col slds-size_1-of-2" style="padding-left:10px;">
+                    <div class="slds-form-element slds-m-bottom_small" style="padding-left:20px;">
+                        <label class="slds-form-element__label" for="city" style="color: #005290;">City :</label>
+                        <div class="slds-form-element__control">
+                            <input class="slds-input" id="city" type="text" name="city" maxlength="20" style=" padding: 0.2rem 0.5rem;">
+                        </div>
+                    </div>
+                    <div class="slds-form-element slds-m-bottom_small" style="padding-left:20px;">
+                        <label class="slds-form-element__label" for="phone" style="color: #005290;">Phone :</label>
+                        <div class="slds-form-element__control" >
+                            <input class="slds-input" id="phone" type="text" name="phone" maxlength="20" style=" padding: 0.2rem 0.5rem;">
+                        </div>
+                    </div>
+                    <div class="slds-form-element slds-m-bottom_small" style="padding-left:20px;">
+                        <label class="slds-form-element__label" for="country" style="color: #005290;">Country :</label>
+                        <div class="slds-form-element__control">
+                            <input class="slds-input" id="country" type="text" name="country" maxlength="20" style=" padding: 0.2rem 0.5rem;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <lightning-file-upload label="Attach Resume" name="fileUploader" accept={acceptedFormats} record-id={myRecordId} onuploadfinished={handleUploadFinished} multiple></lightning-file-upload>
+            
+            <div class="slds-form-element slds-m-bottom_medium" style="padding-left:275px;">
+                <button class="slds-button slds-button_brand" type="submit" name="submit" style="background-color: #005290; border: none;">Submit</button>
+            </div>
+            
+           
+        </form>
 
     
     </lightning-modal-body>

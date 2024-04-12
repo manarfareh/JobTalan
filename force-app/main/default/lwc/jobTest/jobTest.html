@@ -1,0 +1,44 @@
+<template>
+    <div  class="card-container" style="justify-content: space-between;margin: 0 -10px;background: rgba(0, 0, 0, .03); background-blend-mode: darken;">
+    <template if:false={progressValue1}>
+        <template if:false={progressValue}>
+        <template if:true={showbutton}>
+            <div class="slds-text-align_center" style="padding-left: 10px;padding-top:20px;padding-bottom:20px;border-radius: 6px;">
+                <lightning-button label="Start Test" onclick={startTimer}></lightning-button>        
+            </div>
+        </template>
+        <template if:true={showContent}>
+            <div class="product-container" style="padding: 30px;">
+                <div class="card-container">
+                    
+                        <p class="slds-text-align_center">{timeRemaining}</p>
+                    <template if:true={visibletests}>
+                        <template for:each={visibletests} for:item="off">
+                            <div key={off.id}   class="card-wrapper">
+                                    <lightning-checkbox-group name={off.question__c}
+                                                            label={off.question__c}
+                                                            options={options}
+                                                            value={value}
+                                                            onchange={handleChange}>
+                                    </lightning-checkbox-group>
+                            </div>
+                        </template>
+                    </template>
+                </div>
+            </div>
+            <div slot="footer" class="slds-var-m-vertical_medium slds-text-align_center" style="padding-right:10px;padding-bottom:20px">
+                <c-testpagination onprogressvaluechange={hanldeProgressValueChange}  records={totaltests} onupdate={updateContactHandler} score={score} test={visibletests} value={selectedValues}></c-testpagination>
+            </div>
+        
+        </template>
+        
+    </template>
+    <template if:true={progressValue} >
+        <p> {message}</p>
+    </template>
+</template>
+<template if:true={progressValue1} >
+    <p> {message1}</p>
+</template>
+</div>
+</template>

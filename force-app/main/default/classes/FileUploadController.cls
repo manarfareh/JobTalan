@@ -1,6 +1,6 @@
 public with sharing class FileUploadController {
     @AuraEnabled
-    public static String uploadFile(String fileName, String base64Data, String leadId) 
+    public static String uploadFile(String fileName, String base64Data, Id leadId) 
     {
         Blob fileBlob = EncodingUtil.base64Decode(base64Data);
         Attachment attachment = new Attachment();

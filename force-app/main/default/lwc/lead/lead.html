@@ -1,0 +1,16 @@
+<template>
+    <lightning-card title="Add Buttons In LWC Datatable Salesforce" icon-name="standard:account">
+        <template if:true={data}>
+            <lightning-datatable key-field="Id" data={visibleDatas} columns={columns} hide-checkbox-column="true"
+                show-row-number-column="true" onrowaction={callRowAction}>
+            </lightning-datatable>
+        </template>
+        <template if:true={error}>
+            {error}>
+        </template>
+        <div slot="footer" class="slds-var-m-vertical_medium" style="padding-left: 515px; width:1000px;">
+            <c-pagination records={data} onupdate={updateContactHandler}></c-pagination>
+        </div>
+    </lightning-card>
+
+</template>

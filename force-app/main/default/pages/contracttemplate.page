@@ -1,0 +1,10 @@
+<apex:page renderAs="pdf" controller="ContractPDFController">
+    <apex:form>
+        <apex:pageBlock title="Contract Details">
+            <apex:pageBlockSection title="Contract Information">
+                <apex:outputText value="{!contract.opportunity__r.Name }" />
+                <!-- Add more fields as needed -->
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

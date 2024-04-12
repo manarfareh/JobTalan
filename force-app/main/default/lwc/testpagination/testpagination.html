@@ -1,0 +1,22 @@
+<template>
+    <template if:true={showcontent}>
+    <lightning-layout>
+        <lightning-layout-item flexibility="grow">
+            <p class="slds-text-align_center">{currentPage}/{totalPage}  </p>
+        </lightning-layout-item>
+        <lightning-layout-item>
+            <lightning-button label={next} 
+            icon-name="utility:chevronright"
+            icon-position="right"
+            onclick={nextHandler}
+            disabled={disableNext}></lightning-button>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>
+<template if:true={showsubmit}>
+    <lightning-button label="submit" 
+            icon-name="utility:chevronright"
+            icon-position="right"
+            onclick={onsubmit}></lightning-button>
+</template>
+</template>

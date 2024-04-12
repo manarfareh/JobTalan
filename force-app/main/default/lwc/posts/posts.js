@@ -1,39 +1,25 @@
 import { LightningElement ,wire} from 'lwc';
 import getoffre  from '@salesforce/apex/postcontroller.getoffre';
-import getoffreByDepartment  from '@salesforce/apex/postcontroller.getoffreByDepartment';
+import getoffreByDepartmentandType  from '@salesforce/apex/postcontroller.getoffreByDepartmentandType';
 import getDepartment  from '@salesforce/apex/postcontroller.getDepartment';
 import style from "./style.css";
 import MyModal from 'c/postModal';
+import Modal from 'c/myModal';
 export default class Posts extends LightningElement {
     static stylesheets = [style];
     totalPosts;
     visiblePosts;
     departmentlist = [];
     depName = "All";
-     idpost;
-     link;
+    typeName="All";
+    Typelist = [{ label: 'All', value: 'All' },{ label: 'Job', value: 'Job' },{ label: 'Internship', value: 'Internship' }];
      postid;
-
-    @wire(getoffre)
-    wiredContact({error, data}){
-        if(data){ 
-            this.totalPosts = data;
-            console.log(this.totalPosts);
-        }
-        if(error){
-            console.error(error);
-        }
-    }
-
+     link;
+     getoffreByDepartmentandType
     updateContactHandler(event){
         this.visiblePosts=[...event.detail.records];
         console.log(event.detail.records);
-    }
-
-
-
-
-    
+    }    
     @wire(getoffre)
     wiredOffre({ error, data }) {
         if (data) {
@@ -63,34 +49,44 @@ export default class Posts extends LightningElement {
                 console.error('Error fetching departments:', error);
             });
     }
+    loadOffreByDepartmentandType()
+    {
+        if (this.typeName === "All" && this.depName==="All") {
+            getoffre()
+            .then(result => {
+                this.totalPosts = result.map(post => ({ ...post, id: String(post.Id) }));
+            })
+            .catch(error => {
+                console.error('Error fetching all offers:', error);
+            });
+        } else {
+            getoffreByDepartmentandType ({ DepartmentName: this.depName, Type:this.typeName })
+            .then(result => {
+                this.totalPosts = result.length ? result[0].Posts__r : [];
+                this.totalPosts = result.map(post => ({ ...post, id: String(post.Id) }));
+                console.log("tttttttttttt");
+                
+                console.log(this.typeName);
+                console.log(this.totalPosts);
+                console.log(this.departmentlist);
+            })
+            .catch(error => {
+                console.error('Error fetching offre by department:', error);
+            });
+        }
+    }
+    get isEmptyVisiblePosts() {
+        return this.visiblePosts.length() === 0;
+    }
 
     handleChange(event) {
         this.depName = event.target.value;
-        this.loadOffreByDepartment();
+        this.loadOffreByDepartmentandType();
     }
-
-    loadOffreByDepartment() {
-        if (this.depName === 'All') {
-            getoffre()
-                .then(result => {
-                    this.totalPosts = result;
-                })
-                .catch(error => {
-                    console.error('Error fetching all offers:', error);
-                });
-        } else {
-            getoffreByDepartment({ DepartmentName: this.depName })
-                .then(result => {
-                    this.totalPosts = result.length ? result[0].Posts__r : [];
-                    console.log("tttttttttttt");
-                    console.log(this.totalPosts);
-                })
-                .catch(error => {
-                    console.error('Error fetching offre by department:', error);
-                });
-        }
+    handleTypeChange(event) {
+        this.typeName = event.target.value;
+        this.loadOffreByDepartmentandType();
     }
-
 
 
     async handleReadMore(event) {
@@ -98,12 +94,24 @@ export default class Posts extends LightningElement {
         console.log('wwwwwwwwwww');
         this.postid=event.currentTarget.dataset.post;
         console.log(this.postid);
+        console.log('aaaaaaawwwwwwwwwww');
+        console.log(event.currentTarget.dataset.post);
         const result = await MyModal.open({
             size: 'large',
             description: 'Accessible description of modal\'s purpose',
             content: 'Passed into content api',
-            idpost: event.currentTarget.dataset.post,
+            idpost: this.postid,
             postname: event.currentTarget.dataset.name
+        });
+        console.log(result);
+    }
+    async handleApply(event) {
+        event.preventDefault();
+        console.log('wwwwwwwwwww');
+        const result = await Modal.open({
+            size: 'large',
+            description: 'Accessible description of modal\'s purpose',
+            content: 'Passed into content api'
         });
         console.log(result);
     }
