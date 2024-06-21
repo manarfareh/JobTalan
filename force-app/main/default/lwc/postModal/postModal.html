@@ -2,50 +2,56 @@
     <lightning-modal-header label={postname}></lightning-modal-header>
     <lightning-modal-body> 
     <lightning-tabset variant="scoped">
-     <lightning-tab label="Post Details">
-        <div class="container mt-5">
-            <template if:true={post}>
-                <div class="container">
-                    <div class="card border-primary" style="padding-left:50px; padding-right:50px; padding-top:10px; padding-bottom:10px;">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="clearfix mb-3" style="display: flex; justify-content: space-between;">
-                                    <p style="padding-left:30px; margin-bottom: 10px; font-size: 23px; color: #333;"><i class="fas fa-map-marker-alt"></i> {post.Location__c}</p>
-                                    <p style="margin-bottom: 10px; font-size: 23px; color: #333;">{post.Contract_Type__c}</p>
-                                    <p style="margin-bottom: 10px; font-size: 23px; color: #333;">{post.Salary__c}$</p>
-                                </div>
+     <lightning-tab label="Post Details" if:true={idpost}>
+        <div class="container mt-6">
+            <div class="container" style="padding-left: 50px; padding-right: 50px; padding-top: 10px; padding-bottom: 10px;">
+                <template if:true={post}>
+                    <div class="post-details" style="border: 1px solid #007bff; border-radius: 10px; padding: 20px;">
+                        <div class="post-header" style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                            <p style="font-size: 23px; color: #333;">{post.Location__c}</p>
+                            <p style="font-size: 23px; color: #333;">{post.Contract_Type__c}</p>
+                            <p style="font-size: 23px; color: #333;">{post.Salary__c}$</p>
+                        </div>
+                        <div class="post-content" style="display: flex; flex-wrap: wrap;">
+                            <div class="post-description" style="width: 100%; margin-bottom: 5px;">
+                                <p style="margin-bottom: 5px; font-size: 16px; color: #333; font-weight: bold;">Description:</p>
+                                <p style="padding-left: 10px; margin-bottom: 5px;">{post.Post_Description__c}</p>
                             </div>
-                            <div class="slds-grid slds-wrap" style="padding-left: 200px;">
-                                <!-- Column 1 -->
-                                <div class="slds-col slds-size_1-of-2">
-                                    <div class="slds-form-element slds-m-bottom_small">
-                                        <p style="margin-bottom: 5px; font-size: 16px; color: #333;"><strong>Description:</strong></p>
-                                        <p style="padding-left: 10px; margin-bottom: 5px; width:300px; -webkit-line-clamp: 20;">{post.Post_Description__c}</p>
-                                    </div>
-                                    <div class="slds-form-element slds-m-bottom_small">
-                                        <p style="margin-bottom: 5px; font-size: 16px; color: #333;"><strong>Skills:</strong></p>
-                                        <p style="padding-left: 10px; margin-bottom: 5px;">{post.Skills__c}</p>
-                                    </div>
-                                </div>
-                                <!-- Column 2 -->
-                                <div class="slds-col slds-size_1-of-2" style="padding-left: 70px;">
-                                    <div class="slds-form-element slds-m-bottom_small">
-                                        <p style="margin-bottom: 5px; font-size: 16px; color: #333;"><strong>Years of Experience:</strong> {post.Years_Of_Experience__c}</p>
-                                    </div>
-                                    <div class="slds-form-element slds-m-bottom_small">
-                                        <p style="margin-bottom: 5px; font-size: 16px; color: #333;"><strong> Start Date:</strong> {post.Start_Date__c}</p>
-                                        <p style="padding-left: 10px; margin-bottom: 5px;"> </p>
-                                    </div>
-                                    <div class="slds-form-element slds-m-bottom_small">
-                                        <p style="margin-bottom: 5px; font-size: 16px; color: #333;"><strong> Diploma:</strong> {post.Diploma__c}</p>
-                                        <p style="padding-left: 10px; margin-bottom: 5px;"></p>
-                                    </div>
-                                </div>
+                            <div class="post-skills" style="width: 100%; margin-bottom: 5px;">
+                                <p style="margin-bottom: 5px; font-size: 16px; color: #333; font-weight: bold;">Skills:</p>
+                                <p style="padding-left: 10px; margin-bottom: 5px;">{post.Skills__c}</p>
                             </div>
+                            <div class="post-experience" style="width: 100%; padding-right: 20px; margin-bottom: 5px;">
+                                <p style="margin-bottom: 5px; font-size: 16px; color: #333; font-weight: bold;">Years of Experience:</p>
+                                <p style="padding-left: 10px; margin-bottom: 5px;">{post.Years_Of_Experience__c}</p>
+                            </div>
+                            <div class="post-start-date" style="width: 100%; padding-right: 20px; margin-bottom: 5px;">
+                                <p style="margin-bottom: 5px; font-size: 16px; color: #333; font-weight: bold;">Start Date:</p>
+                                <p style="padding-left: 10px; margin-bottom: 5px;">{post.Start_Date__c}</p>
+                            </div>
+                            <div class="post-Interview" style="width: 100%; padding-right: 20px; margin-bottom: 5px;">
+                                <p style="margin-bottom: 5px; font-size: 16px; color: #333; font-weight: bold;">Interview Process:</p>
+                                <template for:each={interview} for:item="off">
+                                    <div key={off.id} class="interview-step" style="display: flex;">
+                                        <p style="padding-left: 10px; margin-bottom: 5px;">{off.Order__c}:</p>
+                                        <p style="margin-bottom: 5px;">{off.Interview_Type__c}</p>
+                                    </div>
+                                </template>
+                            </div>
+                            <div class="post-diploma" style="width: 100%; padding-right: 20px; margin-bottom: 5px;">
+                                <p style="margin-bottom: 5px; font-size: 16px; color: #333; font-weight: bold;">Diploma:</p>
+                                <p style="padding-left: 10px; margin-bottom: 5px;">{post.Diploma__c}</p>
+                            </div>
+                            
                         </div>
                     </div>
-                </div>
-            </template>
+                </template>
+                <template if:false={post}>
+                    <p>No post details found.</p>
+                </template>
+            </div>
+            
+            
             <template if:false={post}>
                 <p>No post details found.</p>
             </template>
@@ -53,11 +59,14 @@
     </lightning-tab>
     
             <lightning-tab label="Apply">
+                <template if:false={guest}>
                         <form class="slds-form" onsubmit={handleSubmit} style="max-width: 600px; margin: auto;">
                             <!-- Hidden Inputs -->
                             <input type="hidden" name="oid" value="00DQy000005c83J">
                             <input type="hidden" name="retURL" value="https://talan-8d-dev-ed.develop.my.site.com/TalanJobs">
-                            
+                            <template label="Post Details" if:false={idpost}>
+                                <p style="font-size: 1rem; color: #6c757d;text-align: center; padding:10px;">Didn't find the right job offer for you? Want to receive notifications if we add a new job that matches your CV?.</p>
+                            </template>
                             <div class="slds-grid slds-wrap">
                                 <!-- Column 1 -->
                                 <div class="slds-col slds-size_1-of-2">
@@ -103,6 +112,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <template if:true={cvupl}>{fileName}</template>
                             <lightning-file-upload label="Attach Resume" name="fileUploader" accept={acceptedFormats} record-id={myRecordId} onuploadfinished={handleUploadFinished} multiple></lightning-file-upload>
                             
                             <div class="slds-form-element slds-m-bottom_medium" style="padding-left:275px;">
@@ -111,6 +121,10 @@
                             
                            
                         </form>
+                </template>
+                <template if:true={guest}>
+                     <h1>You need to loggin first to apply</h1>
+                </template>
                 
                 
             </lightning-tab>
@@ -121,3 +135,4 @@
     <lightning-button label="OK" onclick={handleOkay}></lightning-button>
 </lightning-modal-footer>
 </template>
+

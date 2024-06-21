@@ -4,7 +4,6 @@ import getoffreByDepartmentandType  from '@salesforce/apex/postcontroller.getoff
 import getDepartment  from '@salesforce/apex/postcontroller.getDepartment';
 import style from "./style.css";
 import MyModal from 'c/postModal';
-import Modal from 'c/myModal';
 export default class Posts extends LightningElement {
     static stylesheets = [style];
     totalPosts;
@@ -49,6 +48,14 @@ export default class Posts extends LightningElement {
                 console.error('Error fetching departments:', error);
             });
     }
+    handleChange(event) {
+        this.depName = event.target.value;
+        this.loadOffreByDepartmentandType();
+    }
+    handleTypeChange(event) {
+        this.typeName = event.target.value;
+        this.loadOffreByDepartmentandType();
+    }
     loadOffreByDepartmentandType()
     {
         if (this.typeName === "All" && this.depName==="All") {
@@ -63,11 +70,11 @@ export default class Posts extends LightningElement {
             getoffreByDepartmentandType ({ DepartmentName: this.depName, Type:this.typeName })
             .then(result => {
                 this.totalPosts = result.length ? result[0].Posts__r : [];
-                this.totalPosts = result.map(post => ({ ...post, id: String(post.Id) }));
+                console.log('befor map',this.totalPosts);
+                this.totalPosts = this.totalPosts.map(post => ({ ...post, id: String(post.Id) }));
                 console.log("tttttttttttt");
-                
                 console.log(this.typeName);
-                console.log(this.totalPosts);
+                console.log('after map',this.totalPosts);
                 console.log(this.departmentlist);
             })
             .catch(error => {
@@ -78,16 +85,6 @@ export default class Posts extends LightningElement {
     get isEmptyVisiblePosts() {
         return this.visiblePosts.length() === 0;
     }
-
-    handleChange(event) {
-        this.depName = event.target.value;
-        this.loadOffreByDepartmentandType();
-    }
-    handleTypeChange(event) {
-        this.typeName = event.target.value;
-        this.loadOffreByDepartmentandType();
-    }
-
 
     async handleReadMore(event) {
         event.preventDefault();
@@ -105,15 +102,19 @@ export default class Posts extends LightningElement {
         });
         console.log(result);
     }
+
+
     async handleApply(event) {
         event.preventDefault();
-        console.log('wwwwwwwwwww');
-        const result = await Modal.open({
+        console.log('ccdcccccccccc');
+        const result = await MyModal.open({
             size: 'large',
             description: 'Accessible description of modal\'s purpose',
             content: 'Passed into content api'
         });
         console.log(result);
     }
+    
+    
 
 }

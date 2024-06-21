@@ -1,0 +1,106 @@
+<template>
+    <lightning-modal-header label="Application"></lightning-modal-header>
+    <lightning-modal-body>
+        <template for:each={opportunity} for:item="opp" key={opp.Id}>
+            <lightning-card title="Suivre votre demande" class="custom-card" key={opp.Id}>
+                <lightning-progress-indicator current-step={currentStep} class="custom-progress"  type="path" has-error="true" variant="base">
+                    <lightning-progress-step  label="interview scheduling" value="1"></lightning-progress-step>
+                    <lightning-progress-step label="Interview scheduled" value="2"></lightning-progress-step>
+                    <lightning-progress-step label="Interview passed" value="3"></lightning-progress-step>
+                    <lightning-progress-step label="Contract sent" value="4"></lightning-progress-step>
+                    <lightning-progress-step label="Closed Won" value="5"></lightning-progress-step>
+                    <lightning-progress-step class="stepSevenClass" label="Closed Lost" value="6"></lightning-progress-step>
+                </lightning-progress-indicator>
+
+                <template if:true={isStepOne}>
+                    <template for:each={interview} for:item="int" key={int.Id}>
+                        <lightning-card  key={int.Id}>
+                            <template if:false={isdateselected}>
+                                <h1>choose a date for your interview</h1>
+                                <lightning-checkbox-group name="Choose a Date"
+                                                        label="Choose a Date"
+                                                        options={options}
+                                                        value={value}
+                                                        onchange={handleOptionSelection}
+                                                        required>
+                                </lightning-checkbox-group>
+                            </template>
+                            <template if:true={isdateselected}>
+                                <h1>we will sent you interview soon</h1>
+                            </template>
+                    
+                        </lightning-card>
+                   
+                    </template>
+                </template>
+                
+               <template if:true={isStepTwo}>
+                    <template for:each={interview} for:item="int" key={int.Id}>
+                        <lightning-card  key={int.Id}>
+                                <h1>Your interview is scheduled in {int.Start_Date__c}</h1>
+                        </lightning-card>
+                    </template>
+               </template>
+
+                 <template if:true={isStepThree}>                 
+                    <div>
+                           <h2>We are processing your candidacy. </h2>             
+                    </div>
+                </template>
+         
+         
+         
+               
+                <template if:true={isStepFour}>
+                    <div>
+                     <h2> Congratulations! You have been accepted. We have sent you a contract by mail. Please review and sign it within the next 10 days.</h2>
+                     <c-signature-contract idopp={oppid}></c-signature-contract>
+                    </div>
+                </template>
+                <template if:true={isStepFive}>
+                    <div>
+                        <p>Congratulations! Your contract has been signed. Welcome to Talan!</p>
+                    </div>
+                    <lightning-card title="Download Your Contract:">
+                        <template for:each={filesList} for:item="file">
+                            <div key={file.value} class="slds-box">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size_0.5-of-12" style="margin-left: 23px;">
+                                        <lightning-icon icon-name="doctype:pdf" alternative-text="PDF file" title="PDF"></lightning-icon>
+                                    </div>
+                                    <div class="slds-col slds-size_1.5-of-12" style="margin-top: 10px;">
+                                        <a href={file.url} download>Download.</a>
+                                    </div>
+                                    <div class="slds-col slds-size_10-of-12" style="margin-top: 10px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </lightning-card>
+                    
+                </template>
+               
+         
+              <template if:true={isStepSix}>
+            <div >
+                <div class="lost-card">
+                    <div class="card-content">
+                        <h2>Candidacy Annulled</h2>
+                        <p>Sorry, your candidacy has been annulled.</p>
+                        <p>If you have any questions, please don't hesitate to contact us.</p>
+                    </div>
+                    
+                </div>
+            </div>
+        </template>
+         
+         
+         
+               
+            </lightning-card>
+        </template>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button label="OK" onclick={handleOkay}></lightning-button>
+    </lightning-modal-footer>
+</template>

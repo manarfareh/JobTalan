@@ -1,16 +1,16 @@
 <template>
-    <div  class="card-container" style="justify-content: space-between;margin: 0 -10px;background: rgba(0, 0, 0, .03); background-blend-mode: darken;">
+    <div  class="card-container" style="margin-top:70px;justify-content: space-between;margin: 0 -10px;background: rgba(0, 0, 0, .03); background-blend-mode: darken;">
     <template if:false={progressValue1}>
         <template if:false={progressValue}>
         <template if:true={showbutton}>
-            <div class="slds-text-align_center" style="padding-left: 10px;padding-top:20px;padding-bottom:20px;border-radius: 6px;">
+            <div class="slds-text-align_center" style="padding-left: 10px;padding-top:70px;padding-bottom:70px;border-radius: 6px;">
+                <h1 style="color:rgb(36, 29, 171); font-size:x-large;padding-bottom:20px;"> Welcome To JobTalan Test for the {postname} Post</h1>
                 <lightning-button label="Start Test" onclick={startTimer}></lightning-button>        
             </div>
         </template>
         <template if:true={showContent}>
             <div class="product-container" style="padding: 30px;">
-                <div class="card-container">
-                    
+                <div class="card-container">                    
                         <p class="slds-text-align_center">{timeRemaining}</p>
                     <template if:true={visibletests}>
                         <template for:each={visibletests} for:item="off">
@@ -34,11 +34,15 @@
         
     </template>
     <template if:true={progressValue} >
-        <p> {message}</p>
+        <div class="slds-text-align_center" style="padding-left: 10px;padding-top:70px;padding-bottom:70px;border-radius: 6px;">
+            <h1 style="color:rgb(36, 29, 171); font-size:x-large;padding-bottom:20px;"> {message}</h1>      
+        </div>
     </template>
 </template>
 <template if:true={progressValue1} >
-    <p> {message1}</p>
+    <div class="slds-text-align_center" style="padding-left: 10px;padding-top:70px;padding-bottom:70px;border-radius: 6px;">
+        <h1 style="color:rgb(36, 29, 171); font-size:x-large;padding-bottom:20px;"> {message1}</h1>     
+    </div>
 </template>
 </div>
 </template>

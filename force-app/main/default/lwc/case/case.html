@@ -1,0 +1,35 @@
+<template>
+    <div class="slds-col slds-size_1-of-4" style="background-color:rgb(218, 218, 218); margin-left:37%;margin-top:100px">
+        <h1 style="margin-left: 130px;margin-top:17px">Contact Support</h1>
+        <form action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00DQy000005c83J" method="POST" style="margin-left:40px">
+    
+            <input type=hidden name="orgid" value="00DQy000005c83J">
+            <input type=hidden name="retURL" value="https://talan-8d-dev-ed.develop.my.site.com/JobTalan/s/">
+            <div class="slds-form-element slds-m-bottom_small">
+                <label class="slds-form-element__label" for="name" style="color: #005290;margin-left:3px;">Name :</label>
+                <div class="slds-form-element__control" >
+                    <input class="slds-input" id="name" type="text" for="name" maxlength="20" style="padding: 0.2rem 0.5rem;width: 270px;">
+                </div>
+            </div>
+            <div class="slds-form-element slds-m-bottom_small">
+                <label class="slds-form-element__label" for="email" style="color: #005290; display:margin-left:3px;">Email :</label>
+                <div class="slds-form-element__control" >
+                    <input class="slds-input" id="email" type="text" name="email" maxlength="20" style="padding: 0.2rem 0.5rem;width: 270px;">
+                </div>
+            </div>
+            
+            <div class="slds-form-element slds-m-bottom_small">
+                <label class="slds-form-element__label" for="description" style="color: #005290; display:margin-left:3px;">Description :</label>
+                <div class="slds-form-element__control" >
+                    <input class="slds-input" id="description" type="text" name="description" maxlength="120" style=" padding: 0.2rem 0.5rem;width: 270px;">
+                </div>
+            </div>
+            <input type="hidden"  id="external" name="external" value="1" />
+            <div class="slds-form-element slds-m-bottom_medium" style="padding-left:105px;padding-bottom:10px">
+                <button class="slds-button slds-button_brand" type="submit" name="submit" style="background-color: #439bdf; border: none;">Submit</button>
+            </div>
+
+            </form>
+    </div>
+    
+</template>

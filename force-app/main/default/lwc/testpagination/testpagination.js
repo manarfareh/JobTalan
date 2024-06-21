@@ -59,8 +59,8 @@ export default class Testpagination extends LightningElement {
         console.log(typeof(this.lead.testscore__c));
         console.log(typeof(this.score));
         console.log(c);
-        console.log('eeeeeeeeeee',this.lead.testscore__c);
-            scoreLead({ lead: this.lead, score:this.score+c })
+        console.log('eeeeeeeeeee',(((this.score+c)/this.totalRecords.length)*100).toFixed(2) );
+            scoreLead({ lead: this.lead, score:(((this.score+c)/this.totalRecords.length)*100).toFixed(2) })
         .then(cl => {
             console.log('lead updated :', cl);
         })
@@ -98,8 +98,16 @@ export default class Testpagination extends LightningElement {
     {
         if(data)
         {
-            this.lead=data;
+            this.lead=data[0];
+            if(data.length===0 || this.lead.testscore__c>0)
+            { 
+                console.log('jjjjjjjjjjjj');
+                console.log(this.lead);
+                console.log('jjjjjjjjjjjj');
+            }
         }
         else if(error){console.log(error);}
     }
+    
+    
 }

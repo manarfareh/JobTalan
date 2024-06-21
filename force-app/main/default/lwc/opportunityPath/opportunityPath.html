@@ -1,0 +1,21 @@
+<template>
+        <template if:true={opportunity} >
+            <template for:each={opportunity} for:item="opp" key={opp.Id}>
+                <lightning-card title="Suivre votre demande" class="custom-card" key={opp.Id}>
+                    <template if:true={currentStep} >
+                        <lightning-progress-indicator  current-step={currentStep} class="custom-progress"  type="path" has-error="true" variant="base"> 
+                            <template if:true={interviewDetails} >
+                                <template  for:each={interviewDetails} for:item="inter" key={inter.Id}>
+                                    <lightning-progress-step   key={inter.Id}  label={inter.Name} value={inter.Order__c}></lightning-progress-step>
+                                </template>
+                            </template>
+                            <lightning-progress-step  label="Interviews passed" value={x3}></lightning-progress-step>
+                            <lightning-progress-step  label="Contract sent" value={x4}></lightning-progress-step>
+                                <lightning-progress-step label="Closed Won" value={x5}></lightning-progress-step>
+                                <lightning-progress-step label="Closed Lost" value={x6}></lightning-progress-step>
+                        </lightning-progress-indicator>
+                    </template>
+                </lightning-card>
+            </template>
+        </template>
+</template>

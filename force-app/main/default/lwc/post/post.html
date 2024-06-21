@@ -1,6 +1,63 @@
 <template>
-    <lightning-card title="Add Buttons In LWC Datatable Salesforce" icon-name="standard:account">
+    <lightning-card >
         <template if:true={data}>
+            <lightning-spinner lwc:if={isLoading} alternative-text="Loading"></lightning-spinner>
+    
+    <div class="slds-form-element__control" style="width:1200px; padding-left:10px; padding-bottom:30px">
+        <div class="slds-combobox_container">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-7" style="margin-top: 10px;">
+                    <div class ="slds-var-p-around_small">
+                        <lightning-button variant="brand" label="Export Data" title="Export Data Into CSV" icon-name="utility:download" onclick={clickHandler} ></lightning-button>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-7" style="margin-top: 22px;">
+                    <lightning-button
+                        onclick={handleButtonClick}
+                        variant="brand"
+                        aria-haspopup="dialog"
+                        label="view dashboard"> 
+                    </lightning-button>
+                </div>
+                <!-- Search Input -->
+                <div class="slds-col slds-size_2-of-7" >
+                    <lightning-input
+                        disabled={isObjectSelectionRO} 
+                        required={isRequired}
+                        label="Select Object"
+                        type="search"
+                        value={selectedObjectReference}
+                        onchange={handleInputChange} 
+                        onblur={handleOnBlur}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_3-of-7">
+                </div>
+            </div>
+
+            <!-- Combobox copied from https://www.lightningdesignsystem.com/components/combobox/ -->
+            <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click">
+
+                <div class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox">
+                    <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                        <template for:each={autoCompleteOptions} for:item="option">
+                            <li key={option.Name} role="presentation" class="slds-listbox__item"
+                                onclick={handleOptionClick} data-value={option.Name}
+                                data-name={option.Name}>
+                                <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small" role="option">
+                                    <span class="slds-media__figure slds-listbox__option-icon"></span>
+                                    <span class="slds-media__body">
+                                        <span class="slds-truncate" title="Option ABCDEFGHIJKLMNOPQRSTUVWXYZ">{option.Name}</span>
+                                    </span>
+                                </div>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
             <lightning-datatable key-field="Id" data={visibleDatas} columns={columns} hide-checkbox-column="true"
                 show-row-number-column="true" onrowaction={callRowAction}>
             </lightning-datatable>

@@ -7,7 +7,14 @@
                     <lightning-button data-post={opp.Post__r.Id} data-name={opp.Post__r.Name} style="background-color: rgb(4, 95, 222);" label="See Post" slot="actions" onclick={handleclick}></lightning-button>
                 </template>
                 <p class="slds-var-p-horizontal_small">Status: {opp.StageName}</p>
-                <p slot="footer">Last Day of Status Change: {opp.LastModifiedDate__c}</p>
+                <p class="slds-var-p-horizontal_small" if:true={opp.LastModifiedDate__c}>Last Day of Status Change: {opp.LastModifiedDate__c}</p>
+                <lightning-button slot="footer" style=" "
+                                                    onclick={handleReadMore}
+                                                    variant="brand"
+                                                    aria-haspopup="dialog"
+                                                    label="Read More"
+                                                    data-oppid={opp.Id}> 
+                                                </lightning-button>
             </lightning-card>
         </template>
         <template for:each={leadList} for:item="lead" key={lead.Id}>

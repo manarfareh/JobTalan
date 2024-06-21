@@ -1,0 +1,129 @@
+<template>
+    
+    <lightning-card title="Contract Details" icon-name="standard:contract">
+        <div class="slds-p-horizontal_small slds-p-vertical_medium">
+            <template if:true={contractData}>
+                <div class="header">
+                    <table class="header-table">
+                        <tr>
+                            <td colspan="50">&nbsp;</td>
+                            <td>
+                        <div class="headercontrat">Contrat N° {contractData.ContractNumber}</div>  
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="content">
+                    <div class="contract-container">
+                        <h1>Employment Contract</h1>
+                
+                        <p><strong>Between:</strong> <span style="color: blue;">{contractData.Opportunity__r.Name}</span></p>
+                
+                        <p><strong>And:</strong> <span style="color: blue;">Talan Technology Inc.</span></p>
+                
+                        <p><strong>Start Date:</strong> <span style="color: blue;">{contractData.Opportunity__r.Post__r.Start_Date__c}</span></p>
+                
+                        <h2>Position: {contractData.Opportunity__r.Post__r.Name}</h2>
+                
+                        <h3>1. Job Description and Responsibilities:</h3>
+                        <p style="margin-left: 20px;">The Developer shall perform the following duties and responsibilities:</p>
+                        <ul style="margin-left: 40px;">
+                            {contractData.Opportunity__r.Post__r.Post_Description__c}
+                        </ul>
+                
+                        <h3>2. Work Hours:</h3>
+                        <p style="margin-left: 20px;">The Developer's regular working hours shall be <span style="color: blue;">
+                                9:00 AM to 5:00 PM</span> from <span style="color: blue;"> Monday to Friday</span>. The Developer
+                            may be required to work additional hours as necessary to meet project deadlines, which will be compensated
+                            according to applicable labor laws and company policies.</p>
+                
+                        <h3>3. Compensation and Benefits:</h3>
+                        <p style="margin-left: 20px;">The Developer shall receive a monthly salary of  <span
+                                style="color: blue;">{contractData.Opportunity__r.Post__r.Salary__c}</span>, payable on the <span style="color: blue;">1st</span> of each
+                            month via direct deposit.</p>
+                        <p style="margin-left: 20px;">The employee shall be eligible for performance-based bonuses, subject to the
+                            Company's performance evaluation process.</p>
+                        <p style="margin-left: 20px;">The Developer shall be entitled to participate in the Company's benefits program,
+                            including health insurance, retirement plans, and other benefits offered to full-time employees.</p>
+                
+                        <h3>4. Intellectual Property and Confidentiality:</h3>
+                        <p style="margin-left: 20px;">The Developer acknowledges that all software code, designs, documentation, and other
+                            materials developed during the course of employment are the exclusive property of the Company. The Developer
+                            agrees to maintain the confidentiality of all proprietary information and trade secrets of the Company, both
+                            during and after the termination of employment.</p>
+                
+                        <h3>5. Termination:</h3>
+                        <p style="margin-left: 20px;">Either party may terminate this agreement with <span style="color: blue;">10
+                                days</span> written notice. The Company reserves the right to terminate the Developer's employment
+                            immediately for just cause, including but not limited to gross misconduct, violation of company policies, or
+                            failure to perform duties satisfactorily.</p>
+                
+                        <h3>6. Non-compete Clause:</h3>
+                        <p style="margin-left: 20px;">During the term of employment and after termination, the employee agrees not to engage in any business activities that
+                            directly compete with the Company's products or services within the geographic area where the Company
+                            operates.</p>
+                
+                        <h3>7. Governing Law:</h3>
+                        <p style="margin-left: 20px;">This agreement shall be governed by and construed in accordance with the laws, without regard to its conflicts of law
+                            principles.</p>
+                
+                        <h3>8. Entire Agreement:</h3>
+                        <p style="margin-left: 20px;">This contract constitutes the entire agreement between the parties with respect to
+                            the subject matter hereof and supersedes all prior agreements, negotiations, and understandings, whether
+                            written or oral.</p>
+                
+                        <p><strong>IN WITNESS WHEREOF</strong>, the parties hereto have executed this agreement as of the Effective Date
+                            first above written.</p>
+                            <br/>
+                            <template if:true={getstatus}>
+                                <div>
+                                    <span style="color: blue;">Signature of {contractData.Opportunity__r.Name}</span>
+                                </div>
+                                <div>
+                                    <img src={signurl} width="150" height="80"/>
+                                </div>
+                            </template>
+                    </div>
+                    <table class="contract-table">
+                        <thead>
+                            <tr>
+                                <th colspan="3" class="title">Information de l'entreprise</th>
+                            </tr>
+                            <tr>
+                                <th>Email de l'entreprise</th>
+                                <th>Numéro de téléphone</th>
+                                <th>Localisation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>contact@talancredit.com</td>
+                                <td>(+216) 70015010</td>
+                                <td>10 Rue de l'énergie solaire Impasse N°1 Charguia 1، تونس 2035</td>
+                            </tr>
+                        </tbody>
+                    </table>
+          
+                </div>
+ 
+            </template>
+            <lightning-card  title="Pour traiter votre processus de candidature actuel, signez votre contrat">
+                <div class="c-container">
+                    <div style="width: 400px">        
+                        <p class="slds-m-bottom_small">
+                            <canvas name="canvasItem" height="200" width="400px" style="border:2px solid rgb(136, 135, 135);
+                            background: transparent;"></canvas>
+                        </p>
+                        <p class="slds-m-bottom_small">
+                        <lightning-button variant="brand" label="Save Signature" title="Save"
+                            onclick={saveSignature} class="slds-m-left_x-small"></lightning-button>
+            
+                        <lightning-button variant="brand" label="Clear" title="Clear"
+                            onclick={handleClearClick} class="slds-m-left_x-small"></lightning-button>
+                        </p>
+                    </div>      
+                </div>
+            </lightning-card>
+        </div>
+    </lightning-card>
+</template>

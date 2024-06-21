@@ -4,8 +4,7 @@ public with sharing class LeadController {
         Lead newLead = new Lead(
             FirstName = leadData.get('first_name'),
             LastName = leadData.get('last_name'),
-            Email = leadData.get('email'),
-            Status ='Closed - Not Converted'
+            Email = leadData.get('email')
         );
         if (leadData.containsKey('post')) {
             newLead.Post__c = leadData.get('post');
@@ -53,4 +52,66 @@ public with sharing class LeadController {
         }
     }
 
+    @AuraEnabled(cacheable=true)
+    public static List<Lead> getLeadById(Id LeadId){
+        try {
+            return [select id, name, Post__r.Name,Creation_Date__c, LastTransferDate, status from lead where Id=:LeadId];
+            
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled()
+    public static Lead updateLeadref(Id LeadId){
+        try {
+            Lead l=[select id, name, status from lead where Id=:LeadId];
+            l.Status='Closed - Not Converted';
+            update l;
+            return l;
+            
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled()
+    public static Lead updateLead(Id LeadId){
+        try {
+            Lead l=[select id, name,resume_verified__c, status from lead where Id=:LeadId];
+            l.resume_verified__c=true;
+            //l.Interviewer__c=UserName;
+            update l;
+            return l;
+            
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+    
+
+    @AuraEnabled(cacheable=true)
+    public static List<User> getInterviewer(Id LeadId){
+        try {
+            Lead p=[select id,Post__r.Department__r.Name from lead where Id=:LeadId];
+            List<User> l=[Select Id, Name, Email, profile.Name, IsActive FROM  User where profile.Name='Interviewer' and Department=:p.Post__r.Department__r.Name];
+            return l;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+
+    @AuraEnabled(cacheable=true)
+    public static String convertStatus(String statusName){
+        List<LeadStatus> leadStatuses = [SELECT MasterLabel FROM LeadStatus WHERE IsConverted = true];
+       
+        for (LeadStatus ls : leadStatuses) {
+            if (ls.MasterLabel.equals(statusName)) {
+                return ls.MasterLabel;
+            }
+        }
+     
+        return null; 
+    }
 }

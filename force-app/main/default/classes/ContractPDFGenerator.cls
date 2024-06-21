@@ -1,4 +1,5 @@
 public class ContractPDFGenerator {
+    
     @future(callout=true)
     public static void createPDFContracts(Id id) {
         contract cont=[select Id,  opportunity__r.Name  from contract where Id=:id];

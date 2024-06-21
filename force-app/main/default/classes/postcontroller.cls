@@ -37,4 +37,15 @@ public with sharing class postcontroller {
             throw new AuraHandledException(e.getMessage());
         }
     }
+
+    @AuraEnabled(cacheable=true)
+    public static List<InterviewDetail__c> getInterviewDetailsById( Id PostId){
+        try {
+            return [select Id,Interview_Type__c, Order__c, Post__c from InterviewDetail__c where Post__c=:PostId Order by Order__c];
+            
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
 }
+
