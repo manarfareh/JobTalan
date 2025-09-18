@@ -4,7 +4,7 @@ public with sharing class AWSService {
     public static void postToS3(string recordId){
         
         //User Variables
-        String key = 'AKIAWM7AWFVWBMPHDFW5'; 							
+        String key = 'aaaaaaaaaa'; 							
         String secret = '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'; 			
         String method = 'PUT';									
         String bucketname = 'talanjobcv'; 		
